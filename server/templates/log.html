@@ -1,0 +1,72 @@
+{% extends 'base.html' %} 
+{% block title %} Logs {% endblock %}
+{% block container %}
+<div id="options" class="border">
+
+	<form method="post" action="/device/">
+		 <div class="form-group">
+			<label for="device">Device select</label>
+			<select class="form-control" id="device" name="device">
+			{% for device in devices %}
+			  <option value="{{device}}" {% if "{{current_device}}" == "{{device}}" %} selected="selected" {% endif %}>{{device}}</option>
+			
+			{% endfor %}  
+			</select>
+		
+			<label for="log-type">Log type select</label>
+			<select class="form-control" id="log-type" name="log-type">
+			<option value="5" {% if current_type|int == 5  %} selected="selected"{% endif %}>All</option>
+			  <option value="0" {% if current_type|int == 0  %} selected="selected"{% endif %}>Error</option>
+			  <option value="1" {% if current_type|int == 1  %} selected="selected"{% endif %}>Assert</option>
+			  <option value="2" {% if current_type|int == 2  %} selected="selected"{% endif %}>Warning</option>
+			  <option value="3" {% if current_type|int == 3  %} selected="selected"{% endif %}>Log</option>
+			   <option value="4" {% if current_type|int == 4  %} selected="selected"{% endif %}>Exception</option>
+			
+			</select>
+		</div>
+		 <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+
+<div id="logList" class="border">
+
+
+<ul class="list-group" >
+
+	{% for log in logs %}
+		<a href="#"><li class="item-log list-group-item {% if log["type"] == 3 %}
+										
+										
+									{% elif log["type"] == 0 or log["type"] == 1  or log["type"] == 4%}
+										bg-danger
+									{% elif log["type"] == 2 %}
+										bg-warning
+									{% else %}
+										bg-primary
+									{% endif %}" id="{{log["id"]}}">{{ log["display"] }}</li> </a>
+  
+    {% endfor %}
+</ul>
+</div>
+<div id="content" class="border border-primary">
+	<ul class="list-group"> 
+	{% if logs|length > 0 %}
+	<li class="list-group-item" id="log-condition"> {{logs[0].condition }}</li>
+	<li class="list-group-item" id="log-stackTrace"> {{logs[0].stackTrace}} </li>
+	{% endif %}
+	</ul>
+</div>
+ {% endblock %}
+ 
+ {% block javascript %} 
+ <script>
+	 var logs = {{ logs|tojson }};
+	$(".item-log").click(function(){
+		var id_item = $(this).closest(".item-log").attr("id");
+		console.log(id_item);
+		$("#log-condition").text(logs[id_item].condition);
+		$("#log-stackTrace").text(logs[id_item].stackTrace);
+	});   
+
+</script>
+ {% endblock %}

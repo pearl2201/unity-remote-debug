@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+
+{% block title %} Devices {% endblock %}
+
+{% block container %}
+<div id="options">
+	<form method="post">
+		 <div class="form-group">
+			<label for="device">Device select</label>
+			<select class="form-control" id="device" name="device">
+			{% for device in devices %}
+			  <option value="{{device}}" >{{device}}</option>
+			
+			{% endfor %}  
+			</select>
+		
+			<label for="log-type">Log type select</label>
+			<select class="form-control" id="log-type" name="log-type">
+			  <option value="5">All</option>
+			  <option value="0">Error</option>
+			  <option value="1">Assert</option>
+			  <option value="2">Warning</option>
+			  <option value="3">Log</option>
+			   <option value="4">Exception</option>
+			</select>
+		</div>
+		 <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
+ {% endblock %}

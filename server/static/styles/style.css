@@ -1,0 +1,15 @@
+#logList{
+	height: 64vh;
+	margin-top:10px;
+	overflow:auto;
+}
+#content{
+	margin-top:10px;
+	height:18vh;
+	overflow:auto;
+}
+
+#options{
+	padding:10px;
+	overflow:auto;
+}
