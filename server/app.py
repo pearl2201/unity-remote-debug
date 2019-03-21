@@ -26,7 +26,7 @@ def view_debug_type(device,log_type):
 	else:
 		collect_logs = [x for x in logs if x["device"] == device and x["type"] == int(log_type)]
 	if len(collect_logs) > 200:
-		collect_logs =  logs_1[-200:]
+		collect_logs =  collect_logs[-200:]
 	for i in range(len(collect_logs)):
 		collect_logs[i]["id"] = i
 		collect_logs[i]["display"] = collect_logs[i]["condition"][:100] if len(collect_logs[i]["condition"])>100 else collect_logs[i]["condition"]
