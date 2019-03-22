@@ -1,2 +1,5 @@
 Flask
-gunicorn
+gunicorn==18.0
+flask-socketio
+gevent-websocket
+eventlet
